@@ -2,25 +2,42 @@ import './Navbar.css'
 import { Link } from 'react-router-dom'
 import React from 'react'
 import Button from '../button/Button'
+import { connect } from 'react-redux';
+import { getCurrentUserId } from '../../redux/selectors/selectors';
+import { disconnectUser } from '../../redux/actions/action'
 
 const Navbar = (props) => {
-    return props.online ? (
-        <div className='Navbar'>
-            <Link to='/' className='Navbar-title'> MoTee </Link>
-
+    let connectBtn;
+    let subscribeBtn;
+    let disconnectBtn;
+    if (!props.currentUserId) {
+        connectBtn = (
             <Link to='/login'>
                 <Button.NavbarHoverButton text='Se connecter' />
             </Link>
+        );
+        subscribeBtn = (
             <Link to='/subscribe'>
                 <Button.NavbarHoverButton text="S'inscrire" />
             </Link>
-        </div>
-    ) :
-        (
-            <div>
-
-            </div>
+        );
+    } else {
+        disconnectBtn = (
+            <Button.NavbarHoverButton text='Se déconnecter' onClick={props.disconnectUser}/>
         )
+    }
+    return (
+        <div className='Navbar'>
+            <Link to='/' className='Navbar-title'> MoTee </Link>
+            {connectBtn}
+            {subscribeBtn}
+            {disconnectBtn}
+        </div>
+    )
 }
 
-export default Navbar
+const mapStateToProps = state => {
+    const currentUserId = getCurrentUserId(state)
+    return { currentUserId }
+}
+export default connect(mapStateToProps, {disconnectUser})(Navbar)

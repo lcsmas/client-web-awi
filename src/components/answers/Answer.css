@@ -1,0 +1,27 @@
+.Answer {
+    border-top : 1px solid lightgrey;
+    /* color : white; */
+    padding-top: 1vmin;
+    margin-top: 1vmin;
+    margin-bottom: 1vmin;
+}
+
+.Answer-content {
+    font-size: 20px;
+}
+.Answer-subheader {
+    padding-top: 1vmin;
+    font-size: 15px;
+}
+
+.answer-info {
+    font-size: 15px;
+    margin: 5vmin;
+    padding-bottom: 2vmin;
+    
+}
+
+.user-info a {
+    display: inline;
+    text-decoration: underline;
+}

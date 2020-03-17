@@ -1,0 +1,9 @@
+.AnswersView {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 5px lightgray;
+    width: calc(100% - 300px - 24px);
+    margin: auto;
+    margin-top : 5vmin;
+    padding: 2vmin;
+}
