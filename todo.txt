@@ -1,0 +1,22 @@
+TODO :
+	tag : mettre "tag le plus utilisé plutôt que meilleur tag"
+	impossibilité de modifier un propos ou changement soumis à modération ou indication de la modification
+	panel admin : propos signalé, possibilité de supprimer propos, supression de tags, de réponses
+	font 15px
+	composant hashtag
+	composant like/dislike
+	composant signaler
+	input tag avec string / autocomplete
+	inscription
+	oauth2
+	
+	
+CHARTE GRAPHIQUE :
+- bouton d'ajout en fuschia/rouge
+- tag en rose fuschia aussi si possible
+bouton report en rouge
+- vue des réponses en rouge avec opacité à 70-80%
+- en tête des propos en orange
+- vue des meilleurs tags en jaune/orange/rouge/rose
+
+file:///home/lucas/dev/AWIOS_API/apidoc/index.html#api-Answer
