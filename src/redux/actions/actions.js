@@ -3,12 +3,9 @@ import {
     DELETE_ANSWER, 
     CONNECT_USER, 
     DISCONNECT_USER,
-    REQUEST_PROPOSITIONS,
-    INVALIDATE_PROPOSITIONS,
-    RECEIVE_PROPOSITIONS
 } from './actionTypes';
 
-let nextAnswerId = 0;
+let nextAnswerId = 10;
 
 export const addAnswer = (content, userId, isAnon) => ({
     type: ADD_ANSWER,
@@ -34,18 +31,3 @@ export const disconnectUser = id => ({
     type : DISCONNECT_USER,
 })
 
-export const requestPropositions = () => ({
-    type : REQUEST_PROPOSITIONS
-})
-
-export const invalidatePropositions = () => ({
-    type : INVALIDATE_PROPOSITIONS
-})
-
-export const receivePropositions = (json) => ({
-    type : RECEIVE_PROPOSITIONS,
-    payload : {
-        propositions : json,
-        receivedAt : Date.now()
-    }
-})

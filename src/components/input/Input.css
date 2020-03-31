@@ -1,4 +1,5 @@
 .InputText {
     margin: 5px;
-    padding: 5px;
+    resize: none;
+    padding: 10px;
 }

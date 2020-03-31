@@ -9,7 +9,7 @@ function AnswersView(props) {
     return (
         <div className='AnswersView'>
             <AnswersList />
-            {props.currentUserId ? <AddAnswer /> : ""}
+            {props.currentUserId && <AddAnswer />}
         </div>
     )
 }

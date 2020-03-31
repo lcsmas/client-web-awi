@@ -10,7 +10,6 @@
     border: 2px solid lightgray;
     color: gray;
     font-weight: bolder;
-    font-size: 17px;
     transition-duration: 0.4s;
 }
 
@@ -28,7 +27,6 @@
     border: 2px solid #27a142;
     color: #27a142;
     font-weight: bolder;
-    font-size: 17px;
     transition-duration: 0.4s;
 }
 
@@ -47,7 +45,6 @@
     border-radius: 5px;
     border: 2px solid#246e78;
     font-weight: bolder;
-    font-size: 17px;
     transition-duration: 0.4s;
 
 }
@@ -63,7 +60,6 @@
     margin: 5px;
     padding: 1vmin;
     cursor: pointer;
-    font-size: 17px;
     font-weight: bolder;
     border : none;
     transition-duration: 0.4s;

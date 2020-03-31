@@ -4,8 +4,8 @@ import Input from '../input/Input';
 import Button from '../button/Button';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { connectUser } from '../../redux/actions/action';
-import { getCurrentUserId } from '../../redux/selectors/selectors';
+import { connectUser } from 'redux/slices/users';
+import { getCurrentUserId } from 'redux/selectors/selectors';
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -28,29 +28,14 @@ class LoginForm extends React.Component {
     handleConnection(e) {
         const pseudo = this.state.login
         const mdp = this.state.mdp
-        fetch(`http://localhost:3000/users/authenticate`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ pseudo: `${pseudo}`, mdp: `${mdp}` })
-        })
-            .then((res) => {
-                if (res.ok) {
-                    const resText = res.json().then(res=>this.props.connectUser(res.id, res.pseudo));
-                    return "Connexion réussie !"
-                } else {
-                    return "L'utilisateur n'existe pas"
-                }
-            })
-            .then((res) => alert(res));
+        this.props.connectUser(pseudo, mdp);
     }
     handleSubscribe(e) {
 
     }
     render() {
         if (this.props.currentUserId){
-            return (<Redirect to='/answers'/>);
+            return (<Redirect to='/'/>);
         }
         return (
             <div className="LoginForm">
@@ -67,5 +52,5 @@ class LoginForm extends React.Component {
 
 export default connect(state => {
     const currentUserId = getCurrentUserId(state);
-    return {currentUserId};
+    return { currentUserId };
 }, {connectUser})(LoginForm)

@@ -4,7 +4,7 @@ import React from 'react'
 import Button from '../button/Button'
 import { connect } from 'react-redux';
 import { getCurrentUserId } from '../../redux/selectors/selectors';
-import { disconnectUser } from '../../redux/actions/action'
+import { disconnectUser } from '../../redux/actions/actions'
 
 const Navbar = (props) => {
     let connectBtn;

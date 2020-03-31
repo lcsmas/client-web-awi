@@ -1,0 +1,29 @@
+.add-proposition {
+    margin-top: 10px;
+    margin-right: 20px;
+    /* border-top: 1px solid lightgrey; */
+}
+.add-proposition-checkbox {
+    display: block;
+    margin-top: 1vmin;
+    margin-bottom: 1vmin;
+    font-size: 15px;
+}
+.add-proposition-button {
+    display: block;
+}
+
+.add-proposition h2 {
+    font-size: 20px;
+    font-weight: normal;
+}
+.add-proposition .InputText {
+    margin: 0px;
+    font-size: 15px;
+    /* border-top: 1px solid lightgrey; */
+}
+.add-proposition .TextArea {
+    margin-top: 8px;
+    font-size: 15px;
+    /* border-top: 1px solid lightgrey; */
+}

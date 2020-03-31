@@ -1,3 +1,16 @@
 .Answer-list {
     margin-bottom: 1vmin;
 }
+
+.connection-alert {
+    background-color: lightyellow;
+    border : 3px solid yellow;
+    border-radius: 5px;
+    padding: 8px;
+    color: #818a1d;
+}
+
+.no-answer {
+    padding: 8px;
+    padding-bottom: 15px;
+}

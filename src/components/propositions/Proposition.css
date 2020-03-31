@@ -1,0 +1,32 @@
+.proposition {
+    border-bottom: 1px solid lightgrey;
+    padding-top: 6px;
+    padding-bottom: 12px;
+}
+
+.proposition-title {
+    font-weight: bold;
+}
+
+.proposition-owner {
+    font-size: 15px;
+    display: inline;
+    text-decoration: underline;
+}
+.proposition-like {
+    font-size: smaller;
+}
+
+.proposition ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.selected {
+    background-color: lightgreen;
+}
+
+.proposition:hover:not(.selected) {
+    background-color: lightgrey;
+}

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import Input from '../input/Input'
 import Button from '../button/Button';
-import { addAnswer } from '../../redux/actions/action'
+import { postSlice, fetchSlice } from '../../redux/actions/sliceActions'
+import { updatePropositionAnswers } from '../../redux/actions/propositionsActions'
+import { ENTITIES } from '../../redux/schema'
 import { connect } from 'react-redux'
-import { getCurrentUserId } from '../../redux/selectors/selectors'
+import { getCurrentUserId, getSelectedProposition } from '../../redux/selectors/selectors'
 import TextArea from '../input/TextArea';
 import './AddAnswer.css'
 
@@ -11,7 +12,7 @@ class AddAnswer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            content: '',
+            content: "",
             isAnon: false
         }
     }
@@ -22,25 +23,33 @@ class AddAnswer extends Component {
         this.setState({ isAnon: checked });
     }
     handleAddAnswer = () => {
-        this.props.addAnswer(
-            this.state.content,
-            this.props.currentUserId,
-            this.state.isAnon)
-        this.setState({ content: '', isAnon: false })
+        const slice = ENTITIES.ANSWERS;
+        const data = { content: this.state.content, owner: this.props.currentUserId, isAnon: this.state.isAnon }
+        this.props.postSlice(slice, data)
+            .then(res => {
+                const proposition = this.props.selectedProposition;
+                const answer = res.payload.res;
+                this.props.updatePropositionAnswers({ id: proposition, answer })
+                    .then(() => {
+                        this.props.fetchSlice(slice);
+                        this.props.fetchSlice(ENTITIES.PROPOSITIONS)
+                    });
+            })
+        this.setState({content: "", isAnon: false })
     }
     render() {
         return (
             <div className="AddAnswer">
                 <h2> Votre réponse </h2>
-                <TextArea rows="10" cols="92" onChange={e => this.updateContent(e.target.value)} value={this.state.content} />
+                <TextArea rows="5" cols="92" onChange={e => this.updateContent(e.target.value)} value={this.state.content} />
                 <div className="AddAnswer-checkbox">
                     <input name='isAnon' type='checkbox' checked={this.state.isAnon}
                         onChange={e => this.updateCheckbox(e.target.checked)} />
-                    <label for='isAnon'> Publier anonymement </label>
+                    <label htmlFor='isAnon'> Publier anonymement </label>
                 </div>
                 <div className="AddAnswer-button">
                     <Button.BlueSquaredButton text='Publier votre réponse'
-                        onClick={this.handleAddAnswer}
+                        onClick={() => this.handleAddAnswer()}
                     />
                 </div>
             </div>
@@ -51,7 +60,8 @@ class AddAnswer extends Component {
 export default connect(
     state => {
         const currentUserId = getCurrentUserId(state);
-        return { currentUserId };
+        const selectedProposition = getSelectedProposition(state);
+        return { currentUserId, selectedProposition };
     },
-    { addAnswer }
+    { postSlice, fetchSlice, updatePropositionAnswers }
 )(AddAnswer);

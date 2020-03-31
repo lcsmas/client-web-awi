@@ -1,5 +1,5 @@
 .AddAnswer {
-    border-top: 1px solid lightgrey;
+    /* border-top: 1px solid lightgrey; */
 }
 .AddAnswer-checkbox {
     display: block;
@@ -11,7 +11,7 @@
     display: block;
 }
 
-h2 {
+.AddAnswer h2 {
     font-size: 20px;
     font-weight: normal;
 }

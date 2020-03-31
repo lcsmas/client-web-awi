@@ -1,31 +1,30 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getUserById } from '../../redux/selectors/selectors'
+import { getUserById, getAnswerById } from '../../redux/selectors/selectors'
 import { Link } from 'react-router-dom'
 import './Answer.css'
 
-function Answer({ content, userId, isAnon, ...props }) {
-    let user;
-    if (!isAnon) {
-        user = (<Link to={`/users/${userId}`}>
-            {props.user.name}
-        </Link>)
-    } else {
-        user = (<a>Anonyme</a>)
-    }
+function Answer(props) {
+    const user = props.owner;
+    const answer = props.answer;
 
     return (
         <div className='Answer'>
-            <p className='Answer-content'> {content} </p>
-            <div className='Answer-subheader'>
-                <p>Réponse de <span className="user-info">{user}</span></p>
-            </div>
+            {answer.content && <div className='Answer-subheader'>
+                <p style={{ marginBottom: 0 }}> {
+                    answer.isAnon ? <a>Anonyme</a> : <Link className="user-info" to={`/users/${user.id}`} >@{user.name}</Link>
+                }</p>
+            </div>}
+            <p className='Answer-content'>
+                {answer.content}
+            </p>
         </div>
     )
 }
 
 const mapStateToStore = (state, ownProps) => {
-    const user = getUserById(state, ownProps.userId);
-    return { user }
+    const answer = getAnswerById(state, ownProps.id);
+    const owner = getUserById(state, answer.owner);
+    return { answer, owner }
 }
 export default connect(mapStateToStore)(Answer)

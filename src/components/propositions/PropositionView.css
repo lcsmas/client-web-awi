@@ -1,0 +1,8 @@
+.proposition-view {
+    border-right: 1px solid lightgrey;
+}
+
+.proposition-view .connection-alert {
+    margin-top: 12px;
+    margin-right: 12px;
+}
