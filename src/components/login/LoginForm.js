@@ -41,7 +41,7 @@ class LoginForm extends React.Component {
             <div className="LoginForm">
                 <h1>Connexion</h1>
                 <Input placeholder="Pseudonyme" onChange={this.handleLoginChange} />
-                <Input placeholder="Mot de passe" hide={true} onChange={this.handleMdpChange} />
+                <Input placeholder="Mot de passe" type='password' onChange={this.handleMdpChange} />
                 <Button.BlueSquaredButton text="Se connecter" onClick={this.handleConnection} />
                 <Link to='subscribe'>
                     <Button.BlueSquaredButton text="Pas de compte ? Inscrivez-vous !" />

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import React from 'react'
 import Button from '../button/Button'
 import { connect } from 'react-redux';
-import { getCurrentUserId } from '../../redux/selectors/selectors';
-import { disconnectUser } from '../../redux/actions/actions'
+import { getCurrentUserId } from 'redux/selectors/selectors';
+import { disconnectUser } from 'redux/slices/users'
 
 const Navbar = (props) => {
     let connectBtn;

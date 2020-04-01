@@ -19,4 +19,8 @@ bouton report en rouge
 - en tête des propos en orange
 - vue des meilleurs tags en jaune/orange/rouge/rose
 
+ENVIRONNEMENT (fait à l'arrache pour l'instant) :
+	Modifier getSchema() de schema/index.js pour qu'il s'adapte à l'env
+	Modifier host et port de api/index.js pour qu'il s'adapte à l'env
+
 file:///home/lucas/dev/AWIOS_API/apidoc/index.html#api-Answer

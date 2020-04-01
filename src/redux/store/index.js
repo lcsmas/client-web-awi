@@ -1,10 +1,13 @@
-import rootReducer from 'redux/reducers';
-import thunk from 'redux-thunk';
+import rootReducer from 'redux/slices';
 import { configureStore } from '@reduxjs/toolkit'
+import thunk from "redux-thunk";
 
-const middleware = process.env.NODE_ENV !== 'production' ?
-  [require('redux-immutable-state-invariant').default(), thunk] :
-  [thunk];
+let middleware = [];
+if (process.env.NODE_ENV !== 'production') {
+  middleware = [require('redux-immutable-state-invariant').default(), thunk]
+} else {
+  middleware = [thunk]
+}
 
 export default configureStore({
   reducer: rootReducer,

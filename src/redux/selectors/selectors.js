@@ -27,6 +27,8 @@ export const getCurrentUserId = store =>
     getUsersState(store) ? getUsersState(store).currentUserId : undefined;
 export const getUserById = (store, id) =>
     getUsersState(store) ? { ...getUsersState(store).byIds[id] } : {};
+export const getUsersConnectionState = store =>
+    getUsersState(store) ? getUsersState(store).connectionState : undefined;
 
 /* HIGHER-ORDER */
 export const getSliceState = (store, slice) => store[slice];
