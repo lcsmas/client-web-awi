@@ -14,7 +14,7 @@ const propositions = createFetchableSlice({
 })
 
 /* EXPORT ACTIONS */
-export const updateAnswers = data => { propositions.thunks.updateChildSlice('answers', data) }
+export const updatePropositionsAnswers = data => propositions.thunks.updateChildSlice('answers', data)
 export const { select: selectProposition } = propositions.actions
 export const { fetch: fetchPropositions, post: postProposition } = propositions.thunks
 

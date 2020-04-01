@@ -4,7 +4,7 @@ import Button from "../button/Button";
 import TextArea from "../input/TextArea";
 import Input from "../input/Input";
 import './AddProposition.css';
-import { postProposition, fetchPropositions } from "../../redux/actions/propositionsActions";
+import { postProposition, fetchPropositions } from "redux/slices/propositions";
 import { getCurrentUserId } from '../../redux/selectors/selectors';
 
 
@@ -15,7 +15,7 @@ class AddProposition extends React.Component {
             title: "",
             content: "",
             isAnon: false,
-            tags: []
+            tags: ""
         }
     }
     updateTitle(value) {
@@ -27,16 +27,15 @@ class AddProposition extends React.Component {
     updateCheckbox(checked) {
         this.setState({ isAnon: checked });
     }
-    updateTags(tags) {
-        const newTags = tags.split(" ");
-        this.setState({ tags: newTags });
+    updateTags(value) {
+        this.setState({ tags: value });
     }
     handleAddProposition() {
         const data = {
             title: this.state.title,
             content: this.state.content,
             isAnon: this.state.isAnon,
-            tags: this.state.tags,
+            tags: this.state.tags.split(" ").filter( tag => tag!==""), 
             owner: this.props.user
         }
         this.props.postProposition(data)

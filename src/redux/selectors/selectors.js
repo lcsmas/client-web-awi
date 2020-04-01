@@ -6,6 +6,7 @@ export const getAnswerById = (store, id) =>
     getAnswersState(store) ? { ...getAnswersState(store).byIds[id], id } : {};
 export const getAnswers = store =>
     getAnswersList(store).map(id => getAnswerById(store, id));
+export const getAnswersFetchState = store => getSliceFetchState(store, 'answers');
 
 /* PROPOSITIONS */
 export const getPropositionsState = store => store.propositions;
@@ -15,10 +16,10 @@ export const getPropositionById = (store, id) =>
     getPropositionsState(store) ? { ...getPropositionsState(store).byIds[id], id } : {};
 export const getPropositions = store =>
     getPropositionsList(store).map(id => getPropositionById(store, id));
-export const getPropositionsFetchState = store => store.propositions.fetchState
 export const getAnswersOfProposition = (store, idProposition) =>
-    getPropositionById(store, idProposition).answers
-export const getSelectedProposition = store => store.propositions.selected
+    getPropositionById(store, idProposition).answers;
+export const getSelectedProposition = store => store.propositions.selected;
+export const getPropositionsFetchState = store => getSliceFetchState(store, 'propositions');
 
 /* USERS */
 export const getUsersState = store => store.users
@@ -35,6 +36,7 @@ export const getSliceById = (store, slice, id) =>
     getSliceState(store, slice) ? { ...getSliceState(store, slice).byIds[id], id } : {};
 export const getSlice = (store, slice) =>
     getSliceList(store,slice).map(id => getSliceById(store, slice, id));
-export const getSliceFetchState = (store, slice) => store[slice].fetchState
+export const getSliceFetchState = (store, slice) => 
+    getSliceState(store, slice) ? store[slice].fetchState : {};
 
 
