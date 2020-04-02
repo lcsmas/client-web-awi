@@ -42,7 +42,6 @@ const mapStateToProps = state => {
     const fetchState = getPropositionsFetchState(state)
     const isConnected = getToken(state)
     const propositions = getPropositionsList(state)
-    console.log(propositions)
     return { selectedProp, fetchState, isConnected, propositions }
 }
 export default connect(mapStateToProps)(PropositionsAnswersSplitContainer)

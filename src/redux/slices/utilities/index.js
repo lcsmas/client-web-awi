@@ -103,6 +103,7 @@ export const createFetchableSlice = ({ name, initialState, reducers }) => {
           action.payload.ids.forEach(val => state.reportedIds.push(val))
         },
         prepare: res => {
+          
           let ids = []
           const entries = Object.entries(res);
           ids = entries.map(entry => entry[0])

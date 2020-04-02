@@ -33,7 +33,7 @@ function Proposition(props) {
 const mapStateToProps = (state, ownProp) => {
     const proposition = getPropositionById(state, ownProp.id);
     const owner = getUserById(state, proposition.owner);
-    const tags = proposition.tags.map(tagId => getSliceById(state, ENTITIES.TAGS, tagId));
+    const tags = proposition.tags ? proposition.tags.map(tagId => getSliceById(state, ENTITIES.TAGS, tagId)) : [];
     const selectedProp = getSelectedProposition(state)
     return { proposition, owner, tags, selectedProp }
 }

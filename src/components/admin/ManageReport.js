@@ -11,6 +11,7 @@ class ManageReport extends Component {
         super(props);
     }
     componentDidMount() {
+        this.props.fetchReportedPropositions(this.props.token);
         this.props.fetchReportedAnswers(this.props.token);
     }
     render() {
@@ -22,9 +23,9 @@ class ManageReport extends Component {
                 <div className='manage-report-body'>
                     <ul>
                         {this.props.reportedPropositionsIds &&
-                            this.props.reportedPropositionsIds.map(prop => <li>
-                                <Proposition id={prop.id} />
-                            </li>)}
+                            this.props.reportedPropositionsIds.map(id => (<li>
+                                <Proposition id={id} />
+                            </li>))}
                     </ul>
                 </div>
 
