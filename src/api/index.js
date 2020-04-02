@@ -56,6 +56,20 @@ const fetchSlice = (slice) => {
     .then(handleFailure)
     .then(res => res.json());
 };
+const fetchReported = (slice, token) => {
+  const fetchURL = constructURL(`/admin/${slice}/reported`);
+  const authorizationValue = token ? `Bearer ${token}` : "";
+  return fetch(fetchURL, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: authorizationValue
+    },
+  })
+    .then(handleFailure)
+    .then(res => res.json());
+}
 const postSlice = (slice, data, token = "", reject) => {
   const url = constructURL(`/${slice}`);
   const authorizationValue = token ? `Bearer ${token}` : "";
@@ -87,12 +101,43 @@ const updateSliceOfSliceById = (parentSlice, childSlice, data) => {
   // c'est pour cela que le catch renvoie res parce qu'un PUT ne renvoie pas forcément un body
 };
 
+const likeSlice = (slice, token = "", id) => {
+  const url = constructURL(`/${slice}/like`);
+  const authorizationValue = token ? `Bearer ${token}` : "";
+  return fetch(url, {
+    method: 'PUT',
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: authorizationValue
+    },
+    body: JSON.stringify({id})
+  }).then(handleFailure).then(res=>res.json())
+}
+
+const dislikeSlice = (slice, token = "", id) => {
+  const url = constructURL(`/${slice}/dislike`);
+  const authorizationValue = token ? `Bearer ${token}` : "";
+  return fetch(url, {
+    method: 'PUT',
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: authorizationValue
+    },
+    body: JSON.stringify({id})
+  }).then(handleFailure).then(res=>res.json())
+}
+
 const API = {
   fetchSlice,
   postSlice,
   updateSliceOfSliceById,
   authenticate,
-  register
+  register,
+  likeSlice,
+  dislikeSlice,
+  fetchReported
 };
 
 export default API;

@@ -1,5 +1,6 @@
 import { createFetchableSlice } from "redux/slices/utilities";
 import API from "api";
+import { decode } from 'jsonwebtoken'
 
 const users = createFetchableSlice({
   name: "users",
@@ -9,7 +10,8 @@ const users = createFetchableSlice({
       isRegistering: undefined,
       registerSuccess: false,
       error: undefined,
-      token: undefined
+      token: undefined,
+      currentUserId: undefined
     }
   },
   reducers: {
@@ -17,7 +19,7 @@ const users = createFetchableSlice({
       reducer: (state, action) => {
         state.connectionState.isConnecting = false;
         state.connectionState.token = action.payload.token;
-        
+        state.connectionState.currentUserId = decode(action.payload.token).user._id
       },
       prepare: res => ({ payload: { token: res.token } })
     },
@@ -56,6 +58,7 @@ const users = createFetchableSlice({
     },
     disconnect: state => {
       state.connectionState.token = undefined;
+      state.connectionState.currentUserId = undefined;
     }
   }
 });

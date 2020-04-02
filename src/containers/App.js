@@ -10,6 +10,7 @@ import { fetchTags } from 'redux/slices/tags'
 import { fetchAnswers } from 'redux/slices/answers'
 import { connect } from 'react-redux';
 import PropositionsAnswersSplitContainer from "./PropositionsAnswersSplitContainer";
+import Admin from '../components/admin/Admin'
 
 class App extends React.Component {
   componentDidMount() {
@@ -25,6 +26,7 @@ class App extends React.Component {
         <Switch>
           <Route path='/login' component={LoginForm} />
           <Route path='/subscribe' component={SubscribeForm} />
+          <Route path='/admin' component={Admin} />
           <Route path='/' component={PropositionsAnswersSplitContainer} />
         </Switch>
       </div>

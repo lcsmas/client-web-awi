@@ -1,0 +1,13 @@
+.like {
+    width: fit-content;
+}
+.like svg{
+    padding-bottom: 3px;
+}
+.like svg:hover{
+    cursor: pointer;
+}
+.like-number {
+    padding-left: 10px;
+    padding-top: 20px
+}

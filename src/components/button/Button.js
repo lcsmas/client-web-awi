@@ -21,6 +21,11 @@ const Button = {
         return (
             <button className='BlueSquaredButton' onClick={props.onClick}>{props.text}</button>
         )
+    },
+    RedButton: function BlueSquaredButton(props) {
+        return (
+            <button className='RedButton' onClick={props.onClick}>{props.text}</button>
+        )
     }
 }
 

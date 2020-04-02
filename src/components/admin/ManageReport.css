@@ -1,0 +1,23 @@
+.manage-report {
+    margin-top: 40px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.manage-report-header {
+    border-bottom: 2px solid black;
+}
+
+.manage-report-title {
+    padding: 20px;
+    padding-bottom: 13px;
+}
+
+.manage-report-body ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.manage-report-body {
+    padding: 20px;
+}

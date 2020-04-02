@@ -67,3 +67,17 @@
 .BlueSquaredButton:hover {
     background-color:#1e5e66;
 }
+
+.RedButton {
+    background-color: #e01717;
+    color : white;
+    margin: 5px;
+    padding: 1vmin;
+    cursor: pointer;
+    font-weight: bolder;
+    border : none;
+    transition-duration: 0.4s;
+} 
+.RedButton:hover {
+    background-color:#af1414;
+}

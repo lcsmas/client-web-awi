@@ -1,14 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getUserById, getAnswerById, getAnswerNbLikes } from "../../redux/selectors/selectors";
+import { getUserById, getAnswerById, getAnswerNbLikes, getCurrentUserId } from "../../redux/selectors/selectors";
 import { Link } from "react-router-dom";
 import "./Answer.css";
+import Like from '../like/Like'
+import Delete from '../delete/Delete'
 
 function Answer(props) {
   const user = props.owner;
   const answer = props.answer;
-  const nbLikes = props.nbLikesAnswer
-
   return (
     <div className="Answer">
       {answer.content && (
@@ -18,15 +18,18 @@ function Answer(props) {
             {answer.isAnon ? (
               <a>@anon</a>
             ) : (
-              <Link className="user-info" to={`/users/${user.id}`}>
-                @{user.name}
-              </Link>
-            )}
+                <Link className="user-info" to={`/users/${user.id}`}>
+                  @{user.name}
+                </Link>
+              )}
           </p>
         </div>
       )}
       <p className="Answer-content">{answer.content}</p>
-      <div className="Answer-likes">{nbLikes}</div>
+      <div className="actions">
+        <Like id={props.id} type='answer' />
+        {props.currentUser === answer.owner && <Delete />}
+      </div>
     </div>
   );
 }
@@ -34,7 +37,7 @@ function Answer(props) {
 const mapStateToStore = (state, ownProps) => {
   const answer = getAnswerById(state, ownProps.id);
   const owner = getUserById(state, answer.owner);
-  const nbLikesAnswer = getAnswerNbLikes(state, ownProps.id)
-  return { answer, owner, nbLikesAnswer };
+  const currentUser = getCurrentUserId(state)
+  return { answer, owner, currentUser };
 };
 export default connect(mapStateToStore)(Answer);

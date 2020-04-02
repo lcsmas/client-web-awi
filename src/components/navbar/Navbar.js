@@ -10,6 +10,7 @@ const Navbar = (props) => {
     let connectBtn;
     let subscribeBtn;
     let disconnectBtn;
+    let adminBtn;
     if (!props.token) {
         connectBtn = (
             <Link to='/login'>
@@ -21,7 +22,13 @@ const Navbar = (props) => {
                 <Button.NavbarHoverButton text="S'inscrire" />
             </Link>
         );
+        
     } else {
+        adminBtn = (
+            <Link to='/admin'>
+                <Button.NavbarHoverButton text="Admin" />
+            </Link>
+        )
         disconnectBtn = (
             <Button.NavbarHoverButton text='Se déconnecter' onClick={props.disconnectUser}/>
         )
@@ -29,6 +36,7 @@ const Navbar = (props) => {
     return (
         <div className='Navbar'>
             <Link to='/' className='Navbar-title'> MoTee </Link>
+            {adminBtn}
             {connectBtn}
             {subscribeBtn}
             {disconnectBtn}

@@ -9,7 +9,9 @@ export const getAnswers = store =>
 export const getAnswersFetchState = store =>
   getSliceFetchState(store, "answers");
 export const getAnswerNbLikes = (store, id) =>
-  getAnswerById(store, id).idLikes.length 
+  getAnswerById(store, id).idLikes ? getAnswerById(store, id).idLikes.length : 0;
+export const getReportedAnswers = (store) =>
+  getReportedSlice(store, 'answers')
 
 /* PROPOSITIONS */
 export const getPropositionsState = store => store.propositions;
@@ -26,6 +28,10 @@ export const getAnswersOfProposition = (store, idProposition) =>
 export const getSelectedProposition = store => store.propositions.selected;
 export const getPropositionsFetchState = store =>
   getSliceFetchState(store, "propositions");
+export const getPropositionNbLikes = (store, id) => 
+  getPropositionById(store, id).idLikes ? getPropositionById(store, id).idLikes.length : 0;
+export const getReportedPropositions = (store) =>
+  getReportedSlice(store, 'propositions')
 
 /* USERS */
 export const getUsersState = store => store.users;
@@ -35,6 +41,7 @@ export const getUsersConnectionState = store =>
   getUsersState(store) ? getUsersState(store).connectionState : undefined;
 export const getToken = store =>
   getUsersConnectionState(store).token;
+export const getCurrentUserId = store => getUsersConnectionState(store).currentUserId;
 
 /* HIGHER-ORDER */
 export const getSliceState = (store, slice) => store[slice];
@@ -48,3 +55,5 @@ export const getSlice = (store, slice) =>
   getSliceList(store, slice).map(id => getSliceById(store, slice, id));
 export const getSliceFetchState = (store, slice) =>
   getSliceState(store, slice) ? store[slice].fetchState : {};
+export const getReportedSlice = (store, slice) =>
+  getSliceState(store, slice).reportedIds 

@@ -4,10 +4,12 @@ import API from "api";
 
 export const createFetchableSlice = ({ name, initialState, reducers }) => {
   const sliceMapping = getMapping(name);
+  const initialFetchState = initialState ? initialState.fetchState : undefined;
   let slice = createSlice({
     name: name,
     initialState: {
       fetchState: {
+        ...initialFetchState,
         isFetching: false,
         isPosting: false,
         isUpdating: false,
@@ -15,11 +17,13 @@ export const createFetchableSlice = ({ name, initialState, reducers }) => {
         updateResult: undefined,
         didInvalidate: false,
         lastUpdated: undefined,
-        error: undefined
+        error: undefined,
+        isFetchingReported: false,
       },
       ...initialState,
       allIds: [],
-      byIds: {}
+      byIds: {},
+      reportedIds: []
     },
     reducers: {
       ...reducers,
@@ -91,7 +95,21 @@ export const createFetchableSlice = ({ name, initialState, reducers }) => {
           state.fetchState.error = action.payload.error;
         },
         prepare: error => ({ payload: { error: error } })
-      }
+      },
+      fetchReportedBegin: state => { state.fetchState.isFetchingReported = true },
+      fetchReportedSuccess: {
+        reducer: (state, action) => {
+          state.fetchState.isFetchingReported = false;
+          action.payload.ids.forEach(val => state.reportedIds.push(val))
+        },
+        prepare: res => {
+          let ids = []
+          const entries = Object.entries(res);
+          ids = entries.map(entry => entry[0])
+          return ({ payload: { ids: ids } })
+        }
+      },
+      fetchReportedFailure: state => { state.fetchState.isFetchingReported = false;}
     }
   });
   slice.thunks = {
@@ -105,7 +123,13 @@ export const createFetchableSlice = ({ name, initialState, reducers }) => {
       const dispatchPostSuccess = res => dispatch(slice.actions.postSuccess(res));
       const dispatchPostFailure = err => dispatch(slice.actions.postFailure(err.message));
       dispatch(slice.actions.postBegin());
-      return API.postSlice(name, data, token,).then(dispatchPostSuccess, dispatchPostFailure);
+      return API.postSlice(name, data, token).then(dispatchPostSuccess, dispatchPostFailure);
+    },
+    fetchReported: token => dispatch => {
+      const dispatchFetchSuccess = res => dispatch(slice.actions.fetchReportedSuccess(res));
+      const dispatchFetchFailure = err => dispatch(slice.actions.fetchReportedFailure(err.message));
+      dispatch(slice.actions.fetchReportedBegin());
+      return API.fetchReported(name, token).then(dispatchFetchSuccess, dispatchFetchFailure);
     },
     updateChildSlice: (childSlice, data) => dispatch => {
       dispatch(slice.actions.updateBegin());

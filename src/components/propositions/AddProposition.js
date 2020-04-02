@@ -5,6 +5,7 @@ import TextArea from "../input/TextArea";
 import Input from "../input/Input";
 import './AddProposition.css';
 import { postProposition, fetchPropositions } from "redux/slices/propositions";
+import { fetchTags } from 'redux/slices/tags'
 import { getToken } from 'redux/selectors/selectors';
 
 
@@ -33,16 +34,15 @@ class AddProposition extends React.Component {
     handleAddProposition() {
         const data = {
             titleProp: this.state.title,
-            content: this.state.content,
-            isAnon: this.state.isAnon,
-            tags: this.state.tags.split(" ").filter( tag => tag!==""), 
-            owner: this.props.user
+            contentProp: this.state.content,
+            isAnonymous: this.state.isAnon.toString(),
+            tagsProp: this.state.tags,//.split(" ").filter( tag => tag!==""), 
+            //owner: this.props.user
         }
         const token = this.props.token;
-        this.props.postProposition(data)
-            .then(() => {
-                this.props.fetchPropositions()
-            });
+        this.props.postProposition(data, token)
+            .then(() => this.props.fetchPropositions())
+            .then(() => this.props.fetchTags());
     }
     render() {
         return (
@@ -74,7 +74,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     postProposition,
-    fetchPropositions
+    fetchPropositions,
+    fetchTags
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddProposition)

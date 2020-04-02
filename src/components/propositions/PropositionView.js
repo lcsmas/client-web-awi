@@ -10,7 +10,6 @@ function PropositionView(props) {
     return (
         <div className="proposition-view">
             <PropositionList />
-            {!props.isConnected && <div className='connection-alert'> Vous devez être connecté pour écrire une proposition </div>}
             {props.isConnected && <AddProposition />}
         </div>
     )
