@@ -23,15 +23,9 @@ class App extends React.Component {
       <div>
         <Navbar />
         <Switch>
-          <Route path='/login'>
-            <LoginForm />
-          </Route>
-          <Route path='/subscribe'>
-            <SubscribeForm />
-          </Route>
-          <Route path='/'>
-          <PropositionsAnswersSplitContainer/>
-          </Route>
+          <Route path='/login' component={LoginForm} />
+          <Route path='/subscribe' component={SubscribeForm} />
+          <Route path='/' component={PropositionsAnswersSplitContainer} />
         </Switch>
       </div>
     );

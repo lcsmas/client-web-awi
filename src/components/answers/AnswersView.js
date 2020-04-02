@@ -2,21 +2,21 @@ import React from 'react'
 import { connect } from 'react-redux'
 import AddAnswer from '../answers/AddAnswer'
 import AnswersList from '../answers/AnswerList'
-import { getCurrentUserId } from '../../redux/selectors/selectors'
+import { getToken } from '../../redux/selectors/selectors'
 import './AnswersView.css'
 
 function AnswersView(props) {
     return (
         <div className='AnswersView'>
             <AnswersList />
-            {props.currentUserId && <AddAnswer />}
+            {props.token && <AddAnswer />}
         </div>
     )
 }
 
 const mapStateToProps = state => {
-    const currentUserId = getCurrentUserId(state)
-    return { currentUserId }
+    const token = getToken(state)
+    return { token }
 }
 
 export default connect(mapStateToProps)(AnswersView)

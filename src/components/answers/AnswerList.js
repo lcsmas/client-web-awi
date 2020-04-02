@@ -1,6 +1,6 @@
 import React from 'react'
 import Answer from './Answer'
-import { getAnswersOfProposition, getSelectedProposition, getCurrentUserId } from '../../redux/selectors/selectors'
+import { getAnswersOfProposition, getSelectedProposition, getToken } from 'redux/selectors/selectors'
 import { connect } from 'react-redux'
 import './Answer-list.css'
 
@@ -19,7 +19,7 @@ function AnswerList({answers, ...props}) {
 
 const mapStateToProps = state => {
     const answers = getAnswersOfProposition(state, getSelectedProposition(state));
-    const isConnected = getCurrentUserId(state)
+    const isConnected = getToken(state)
     return {answers, isConnected}
 }
 

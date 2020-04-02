@@ -29,18 +29,18 @@ class SubscribeForm extends React.Component {
     handleConfirmMdpChange = e => { this.setState({ mdpConfirm: e.target.value }) }
     handleMailChange = e => { this.setState({ mail: e.target.value }) }
     handleVilleChange = e => { this.setState({ ville: e.target.value }) }
-    handleRegisterClick = () => { this.props.registerUser(this.state.pseudo, this.state.mdp, this.state.mail) }
+    handleRegisterClick = () => { this.props.registerUser(this.state.pseudo, this.state.mdp, this.state.mail, this.props.history) }
 
     render() {
         let registerSuccessNotice;
         if(this.props.registerSuccess) {
             registerSuccessNotice = <div className='register-success-notice'>
                 Votre compte a bien été enregistré ! 
-                Vous allez être redirigé vers la page d'accueil dans 5 secondes.
+                Vous allez être redirigé vers la page d'accueil dans 3 secondes.
             </div>
         }
 
-        return this.props.registerSuccess ? setTimeout(<Redirect to='/' />, 3000) : (
+        return (
             <div className='SubscribeForm'>
                 {registerSuccessNotice}
                 <h1>Inscription</h1>

@@ -2,7 +2,7 @@ import React from 'react'
 import PropositionList from './PropositionList'
 import AddProposition from "./AddProposition";
 import { connect } from 'react-redux'
-import { getCurrentUserId } from "../../redux/selectors/selectors";
+import { getToken } from "redux/selectors/selectors";
 import './PropositionView.css'
 
 
@@ -17,7 +17,7 @@ function PropositionView(props) {
 }
 
 const mapStateToProps = (state) => ({
-    isConnected: getCurrentUserId(state)
+    isConnected: getToken(state)
 })
 
 export default connect(mapStateToProps)(PropositionView)

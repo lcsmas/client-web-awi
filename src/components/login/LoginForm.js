@@ -5,7 +5,7 @@ import Button from '../button/Button';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { connectUser } from 'redux/slices/users';
-import { getCurrentUserId } from 'redux/selectors/selectors';
+import { getUsersConnectionState } from 'redux/selectors/selectors';
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -34,7 +34,7 @@ class LoginForm extends React.Component {
 
     }
     render() {
-        if (this.props.currentUserId){
+        if (this.props.token){
             return (<Redirect to='/'/>);
         }
         return (
@@ -51,6 +51,6 @@ class LoginForm extends React.Component {
 }
 
 export default connect(state => {
-    const currentUserId = getCurrentUserId(state);
-    return { currentUserId };
+    const token = getUsersConnectionState(state).token;
+    return { token };
 }, {connectUser})(LoginForm)

@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import Button from "../button/Button";
 import {
-  updatePropositionsAnswers,
   fetchPropositions
 } from "redux/slices/propositions";
 import { fetchAnswers, postAnswer } from "redux/slices/answers";
 import { connect } from "react-redux";
 import {
-  getCurrentUserId,
+  getToken,
   getSelectedProposition,
   getAnswersFetchState
 } from "redux/selectors/selectors";
@@ -34,21 +33,13 @@ class AddAnswer extends Component {
   handleAddAnswer = e => {
     e.preventDefault();
     const data = {
-      content: this.state.content,
-      owner: this.props.currentUserId,
-      isAnon: this.state.isAnon
+      contentAnswer: this.state.content,
+      isAnonymous: this.state.isAnon,
+      idProp: this.props.selectedProposition,
+      tagsAnswer: ""
     };
-    this.props.postAnswer(data).then(res => {
-      const proposition = this.props.selectedProposition;
-      const answer = this.props.postedAnswerId;
-      this.props
-        .updatePropositionsAnswers({ id: proposition, answer })
-        .then(() => {
-          this.props.fetchAnswers();
-          this.props.fetchPropositions();
-        });
-    });
-    //this.reset();
+    const token = this.props.token;
+    this.props.postAnswer(data, token).then(this.props.fetchPropositions).then(this.props.fetchAnswers);
   };
   reset() {
     this.setState({
@@ -88,10 +79,10 @@ class AddAnswer extends Component {
 
 export default connect(
   state => {
-    const currentUserId = getCurrentUserId(state);
+    const token = getToken(state);
     const selectedProposition = getSelectedProposition(state);
     const postedAnswerId = getAnswersFetchState(state).postResult;
-    return { currentUserId, selectedProposition, postedAnswerId };
+    return { token, selectedProposition, postedAnswerId };
   },
-  { postAnswer, fetchAnswers, updatePropositionsAnswers, fetchPropositions }
+  { postAnswer, fetchAnswers, fetchPropositions }
 )(AddAnswer);

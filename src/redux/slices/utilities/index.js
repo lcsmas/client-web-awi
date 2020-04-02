@@ -96,24 +96,16 @@ export const createFetchableSlice = ({ name, initialState, reducers }) => {
   });
   slice.thunks = {
     fetch: () => dispatch => {
+      const dispatchFetchSuccess = res => dispatch(slice.actions.fetchSuccess(res));
+      const dispatchFetchFailure = err => dispatch(slice.actions.fetchFailure(err.message));
       dispatch(slice.actions.fetchBegin());
-      return API.fetchSlice(name)
-        .then(res => {
-          dispatch(slice.actions.fetchSuccess(res));
-        })
-        .catch(err => {
-          dispatch(slice.actions.fetchFailure(err.message));
-        });
+      return API.fetchSlice(name).then(dispatchFetchSuccess, dispatchFetchFailure);
     },
-    post: data => dispatch => {
+    post: (data, token) => dispatch => {
+      const dispatchPostSuccess = res => dispatch(slice.actions.postSuccess(res));
+      const dispatchPostFailure = err => dispatch(slice.actions.postFailure(err.message));
       dispatch(slice.actions.postBegin());
-      return API.postSlice(name, data)
-        .then(res => {
-          dispatch(slice.actions.postSuccess(res));
-        })
-        .catch(err => {
-          dispatch(slice.actions.postFailure(err.message));
-        });
+      return API.postSlice(name, data, token,).then(dispatchPostSuccess, dispatchPostFailure);
     },
     updateChildSlice: (childSlice, data) => dispatch => {
       dispatch(slice.actions.updateBegin());

@@ -63,6 +63,7 @@ const MAPPING = {
         ],
         USERS: [
             { client: 'id', server: 'id' },
+            { client: 'mail', server: 'mail'},
             { client: 'name', server: 'pseudo' },
             { client: 'city', server: 'city' },
             { client: 'isAdmin', server: 'isAdmin' },

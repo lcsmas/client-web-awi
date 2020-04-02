@@ -5,23 +5,21 @@ const users = createFetchableSlice({
   name: "users",
   initialState: {
     connectionState: {
-      currentUserId: undefined,
       isConnecting: false,
       isRegistering: undefined,
       registerSuccess: false,
       error: undefined,
       token: undefined
-    },
+    }
   },
   reducers: {
     authSuccess: {
       reducer: (state, action) => {
-        const { currentUserId, token } = action.payload;
         state.connectionState.isConnecting = false;
-        state.connectionState.token = token;
-        state.connectionState.currentUserId = currentUserId;
+        state.connectionState.token = action.payload.token;
+        
       },
-      prepare: res => ({ payload: { currentUserId: res.id, token: res.token } })
+      prepare: res => ({ payload: { token: res.token } })
     },
     authBegin: state => {
       state.connectionState.isConnecting = true;
@@ -34,7 +32,9 @@ const users = createFetchableSlice({
       prepare: error => ({ payload: { error: error } })
     },
     registerBegin: {
-      reducer: state => { state.connectionState.isRegistering = true }
+      reducer: state => {
+        state.connectionState.isRegistering = true;
+      }
     },
     registerFailure: {
       reducer: (state, action) => {
@@ -44,13 +44,17 @@ const users = createFetchableSlice({
       prepare: error => ({ payload: { error: error } })
     },
     registerSuccess: {
-      reducer: state => { 
+      reducer: (state, action) => {
         state.connectionState.isRegistering = false;
         state.connectionState.registerSuccess = true;
+        action.payload.history.push("/");
       },
+      prepare: history => ({ payload: { history: history } })
+    },
+    registerReset: state => {
+      state.connectionState.registerSuccess = undefined;
     },
     disconnect: state => {
-      state.connectionState.currentUserId = undefined;
       state.connectionState.token = undefined;
     }
   }
@@ -59,20 +63,17 @@ const users = createFetchableSlice({
 /* EXPORT ACTIONS */
 export const connectUser = (pseudo, mdp) => dispatch => {
   dispatch(users.actions.authBegin());
-  return API.authenticate(pseudo, mdp)
-    .then(res => {
-      dispatch(users.actions.authSuccess(res));
-    })
-    .catch(err => {
-      dispatch(users.actions.authFailure(err));
-    });
+  const resolve = res => dispatch(users.actions.authSuccess(res));
+  const reject = err => dispatch(users.actions.authFailure(err));
+  return API.authenticate(pseudo, mdp).then(resolve,reject);
 };
-export const registerUser = (pseudo, password, mail) => dispatch => {
+export const registerUser = (pseudo, password, mail, history) => dispatch => {
   dispatch(users.actions.registerBegin());
-  return API.register(pseudo, password, mail)
-    .then(dispatch(users.actions.registerSuccess()))
-    .catch(err => { dispatch(users.actions.registerFailure(err)) })
-}
+  const resolve = res => dispatch(users.actions.registerSuccess(history));
+  const reject = err => dispatch(users.actions.registerFailure(err))
+  return API.register(pseudo, password, mail).then(resolve, reject)
+  
+};
 export const { disconnect: disconnectUser } = users.actions;
 export const { post: postUser, fetch: fetchUsers } = users.thunks;
 
