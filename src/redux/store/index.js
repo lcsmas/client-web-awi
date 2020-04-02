@@ -6,7 +6,7 @@ let middleware = [];
 if (process.env.NODE_ENV !== 'production') {
   middleware = [require('redux-immutable-state-invariant').default(), thunk]
 } else {
-  middleware = [thunk]
+  middleware = [require('redux-immutable-state-invariant').default(),thunk]
 }
 
 export default configureStore({
