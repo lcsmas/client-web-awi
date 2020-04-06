@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getUserById, getAnswerById, getAnswerNbLikes, getCurrentUserId } from "../../redux/selectors/selectors";
+import { getUserById, getAnswerById, isCurrentUserAdmin, getCurrentUserId } from "../../redux/selectors/selectors";
 import { Link } from "react-router-dom";
 import "./Answer.css";
 import Like from '../like/Like'
@@ -28,7 +28,7 @@ function Answer(props) {
       <p className="Answer-content">{answer.content}</p>
       <div className="actions">
         <Like id={props.id} type='answer' />
-        {props.currentUser === answer.owner && <Delete />}
+        {(props.currentUser && props.currentUser === answer.owner || props.isAdmin) && <Delete id={props.id} type='answer' />}
       </div>
     </div>
   );
@@ -38,6 +38,7 @@ const mapStateToStore = (state, ownProps) => {
   const answer = getAnswerById(state, ownProps.id);
   const owner = getUserById(state, answer.owner);
   const currentUser = getCurrentUserId(state)
-  return { answer, owner, currentUser };
+  const isAdmin = isCurrentUserAdmin(state)
+  return { answer, owner, currentUser, isAdmin };
 };
 export default connect(mapStateToStore)(Answer);

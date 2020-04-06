@@ -42,6 +42,8 @@ export const getUsersConnectionState = store =>
 export const getToken = store =>
   getUsersConnectionState(store).token;
 export const getCurrentUserId = store => getUsersConnectionState(store).currentUserId;
+export const isCurrentUserAdmin = store => 
+  getCurrentUserId(store) ? getUserById(store, getCurrentUserId(store)).isAdmin : false;
 
 /* HIGHER-ORDER */
 export const getSliceState = (store, slice) => store[slice];

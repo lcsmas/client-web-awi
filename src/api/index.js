@@ -140,7 +140,7 @@ const deleteSlice = (slice, id, token = "") => {
       Authorization: authorizationValue
     },
     body : JSON.stringify({id})
-  }).then(handleFailure).then(res=>res.json())
+  }).then(handleFailure)
 }
 const API = {
   fetchSlice,

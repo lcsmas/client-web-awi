@@ -62,7 +62,7 @@ export const dislikeProposition = id => (dispatch, getState) => {
     return API.dislikeSlice('propositions', token, id).then(dispatchDislikeSuccess, dispatchDislikeFailure)
 }
 export const { select: selectProposition } = propositions.actions
-export const { fetch: fetchPropositions, post: postProposition, fetchReported: fetchReportedPropositions } = propositions.thunks
+export const { fetch: fetchPropositions, post: postProposition, fetchReported: fetchReportedPropositions, delete: deleteProposition } = propositions.thunks
 
 /* EXPORT REDUCER */
 export default propositions.reducer
