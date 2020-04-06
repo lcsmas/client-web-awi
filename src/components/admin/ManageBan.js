@@ -15,7 +15,7 @@ const ManageBan = (props) => {
             <h2>Utilisateur à bannir</h2>
             <Autocomplete 
                 getItemValue = { u => `${u.name} - ${u.id}` }
-                // items = {props.users}
+                items = {props.users}
                 renderItem={(u, isHighlighted) =>
                     <div style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
                       {`@${u.name} - ${u.id}`}
