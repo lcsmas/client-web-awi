@@ -22,7 +22,7 @@ const Button = {
             <button className='BlueSquaredButton' onClick={props.onClick}>{props.text}</button>
         )
     },
-    RedButton: function BlueSquaredButton(props) {
+    RedButton: function RedButton(props) {
         return (
             <button className='RedButton' onClick={props.onClick}>{props.text}</button>
         )

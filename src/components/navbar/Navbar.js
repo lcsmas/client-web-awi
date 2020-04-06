@@ -14,23 +14,23 @@ const Navbar = (props) => {
     if (!props.token) {
         connectBtn = (
             <Link to='/login'>
-                <Button.NavbarHoverButton text='Se connecter' />
+                <Button.RedButton text='Se connecter' />
             </Link>
         );
         subscribeBtn = (
             <Link to='/subscribe'>
-                <Button.NavbarHoverButton text="S'inscrire" />
+                <Button.RedButton text="S'inscrire" />
             </Link>
         );
         
     } else {
         adminBtn = (
             <Link to='/admin'>
-                <Button.NavbarHoverButton text="Admin" />
+                <Button.RedButton text="Admin" />
             </Link>
         )
         disconnectBtn = (
-            <Button.NavbarHoverButton text='Se déconnecter' onClick={props.disconnectUser}/>
+            <Button.RedButton text='Se déconnecter' onClick={props.disconnectUser}/>
         )
     }
     return (

@@ -8,7 +8,7 @@ const Navbar = () => {
         <div className='nav-admin'>
             <ul>
                 <Link to='/admin/manage-report' > <li>Signalements</li> </Link>
-                <Link to='/admin/manage-ban' > <li>Bannissements</li> </Link>
+                <Link to='/admin/manage-ban' > <li>Bannir un utilisateur</li> </Link>
             </ul>
         </div>
     )

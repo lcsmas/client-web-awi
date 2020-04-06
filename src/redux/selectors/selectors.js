@@ -35,6 +35,7 @@ export const getReportedPropositions = (store) =>
 
 /* USERS */
 export const getUsersState = store => store.users;
+export const getUsers = store => getSlice(store, 'users');
 export const getUserById = (store, id) =>
   getUsersState(store) ? { ...getUsersState(store).byIds[id] } : {};
 export const getUsersConnectionState = store =>
@@ -44,6 +45,12 @@ export const getToken = store =>
 export const getCurrentUserId = store => getUsersConnectionState(store).currentUserId;
 export const isCurrentUserAdmin = store => 
   getCurrentUserId(store) ? getUserById(store, getCurrentUserId(store)).isAdmin : false;
+export const getBannedUsers = store => 
+  getUsers(store) ? getUsers(store).filter(user => user.isBanned) : [];
+
+  /* TAGS */ 
+export const getTagById = (store, id) =>
+  getSliceById(store, 'tags', id);
 
 /* HIGHER-ORDER */
 export const getSliceState = (store, slice) => store[slice];

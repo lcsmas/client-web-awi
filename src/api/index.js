@@ -142,6 +142,22 @@ const deleteSlice = (slice, id, token = "") => {
     body : JSON.stringify({id})
   }).then(handleFailure)
 }
+
+const banUser = (id, token) => {
+  const url = constructURL('/admin/ban');
+  const authorizationValue = token ? `Bearer ${token}` : "";
+  return fetch(url, {
+    method: 'PUT',
+    mode: 'cors',
+    headers : {
+      "Content-Type" : 'application/json',
+      Authorization: authorizationValue
+    },
+    body: JSON.stringify({id})
+  }).then(handleFailure)
+}
+
+
 const API = {
   fetchSlice,
   postSlice,
@@ -151,7 +167,8 @@ const API = {
   likeSlice,
   dislikeSlice,
   fetchReported,
-  deleteSlice
+  deleteSlice,
+  banUser
 };
 
 export default API;

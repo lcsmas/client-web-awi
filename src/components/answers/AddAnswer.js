@@ -39,7 +39,9 @@ class AddAnswer extends Component {
       tagsAnswer: ""
     };
     const token = this.props.token;
-    this.props.postAnswer(data, token).then(this.props.fetchPropositions).then(this.props.fetchAnswers);
+    this.props.postAnswer(data, token)
+    .then(_ => this.props.fetchPropositions())
+    .then(_ => this.props.fetchAnswers());
   };
   reset() {
     this.setState({

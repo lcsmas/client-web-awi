@@ -12,6 +12,7 @@ import './Proposition.css'
 import { selectProposition } from 'redux/slices/propositions'
 import Like from '../like/Like'
 import Delete from '../delete/Delete'
+import { Tags } from 'components/tags/Tags';
 
 function Proposition(props) {
     const { id, title, content, isAnon } = props.proposition;
@@ -26,7 +27,7 @@ function Proposition(props) {
                 {isAnon && <> @anon </>}
             </a></div>
             <p className="proposition-content">{content}</p>
-            <ul>{tags && Object.entries(tags).map(value => <li key={value[0]} >#{value[1].title}</li>)}</ul>
+            <Tags ids={tags}/>
             <Like id={id} type='proposition'/>
             {(props.currentUser && props.currentUser  === props.owner.id || props.isAdmin) && <Delete id={props.id} type='proposition' />}
         </div>
@@ -37,10 +38,10 @@ function Proposition(props) {
 const mapStateToProps = (state, ownProp) => {
     const proposition = getPropositionById(state, ownProp.id);
     const owner = getUserById(state, proposition.owner);
-    const tags = proposition.tags ? proposition.tags.map(tagId => getSliceById(state, ENTITIES.TAGS, tagId)) : [];
-    const selectedProp = getSelectedProposition(state)
-    const currentUser = getCurrentUserId(state)
-    const isAdmin = isCurrentUserAdmin(state)
+    const tags = proposition.tags;
+    const selectedProp = getSelectedProposition(state);
+    const currentUser = getCurrentUserId(state);
+    const isAdmin = isCurrentUserAdmin(state);
     return { proposition, owner, tags, selectedProp, currentUser, isAdmin }
 }
 

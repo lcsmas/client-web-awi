@@ -1,0 +1,14 @@
+.manage-ban {
+    margin-top: 40px;
+}
+
+.manage-ban input {
+    border-radius: 3px;
+    border-width: 1px;
+    border-style: solid;
+    border-color:rgb(39, 39, 39);
+}
+
+.manage-ban button {
+    border-radius: 3px;
+}
