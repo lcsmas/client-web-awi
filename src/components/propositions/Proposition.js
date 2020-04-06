@@ -18,7 +18,6 @@ function Proposition(props) {
     const owner = props.owner;
     const tags = props.tags;
     const selectedProp = props.selectedProp;
-    console.log(props)
 
     return (
         <div className={selectedProp === id ? "proposition selected" : "proposition"} onClick={() => props.selectProposition(id)}>

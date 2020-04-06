@@ -130,13 +130,13 @@ export const createFetchableSlice = ({ name, initialState, reducers }) => {
       deleteSuccess: {
         reducer: (state, action) => {
           state.fetchState.isDeleting = false;
-          // state.allIds.splice(state.allIds.indexOf(action.payload.id), 1);
-          // if (state.reportedIds) {
-          //   state.reportedIds.splice(
-          //     state.reportedIds.indexOf(action.payload.id),
-          //     1
-          //   );
-          // }
+          state.allIds.splice(state.allIds.indexOf(action.payload.id), 1);
+          if (state.reportedIds) {
+            state.reportedIds.splice(
+              state.reportedIds.indexOf(action.payload.id),
+              1
+            );
+          }
           // delete state.byIds[action.payload.id];
         },
         prepare: (id) => ({ payload: { id: id } }),
