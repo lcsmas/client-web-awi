@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getMapping } from "redux/schema";
+import { getToken } from 'redux/selectors/selectors'
 import API from "api";
 
 export const createFetchableSlice = ({ name, initialState, reducers }) => {
@@ -110,7 +111,26 @@ export const createFetchableSlice = ({ name, initialState, reducers }) => {
           return ({ payload: { ids: ids } })
         }
       },
-      fetchReportedFailure: state => { state.fetchState.isFetchingReported = false;}
+      fetchReportedFailure: state => { state.fetchState.isFetchingReported = false;},
+      deleteBegin: state => { state.fetchState.isDeleting = true },
+      deleteFailure : {
+        reducer: (state, action) => {
+          state.fetchState.isDeleting = false;
+          state.fetchState.error = action.payload.error;
+        },
+        prepare: error => ({ payload : { error: error}})
+      },
+      deleteSucess:{
+        reducer: (state, action) => {
+          state.allIds.splice(state.allIds.indexOf(action.payload.id),1);
+          if(state.reportedIds) {
+            state.reportedIds.splice(state.reportedIds.indexOf(action.payload.id),1);
+          }
+          delete state.byIds[action.payload.id];
+          
+        },
+        prepare: id => ({ payload : { id: id}})
+      }
     }
   });
   slice.thunks = {
@@ -131,6 +151,13 @@ export const createFetchableSlice = ({ name, initialState, reducers }) => {
       const dispatchFetchFailure = err => dispatch(slice.actions.fetchReportedFailure(err.message));
       dispatch(slice.actions.fetchReportedBegin());
       return API.fetchReported(name, token).then(dispatchFetchSuccess, dispatchFetchFailure);
+    },
+    delete: id => (dispatch, getState) => {
+      const token = getToken(getState())
+      const dispatchDeleteSuccess = res => dispatch(slice.actions.deleteSuccess(res));
+      const dispatchDeleteFailure = err => dispatch(slice.actions.deleteFailure(err.message));
+      dispatch(slice.actions.deleteBegin());
+      return API.deleteSlice(name, id, token).then(dispatchDeleteSuccess, dispatchDeleteFailure);
     },
     updateChildSlice: (childSlice, data) => dispatch => {
       dispatch(slice.actions.updateBegin());

@@ -64,5 +64,5 @@ export const dislikeAnswer = id => (dispatch, getState) => {
     dispatch(answers.actions.dislikeBegin());
     return API.dislikeSlice('answers', token, id).then(dispatchDislikeSuccess, dispatchDislikeFailure)
 }
-export const { fetch: fetchAnswers, post: postAnswer, fetchReported: fetchReportedAnswers } = answers.thunks
+export const { fetch: fetchAnswers, post: postAnswer, fetchReported: fetchReportedAnswers, delete: deleteAnswer } = answers.thunks
 export default answers.reducer

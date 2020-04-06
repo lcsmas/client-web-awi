@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import './Delete.css'
 
-const Delete = () => {
+const Delete = props => {
     return (
         <div className='delete'>
             <Button.RedButton text='Supprimer' />
@@ -11,9 +11,9 @@ const Delete = () => {
     )
 }
 
-const mapStateToProps = (state) => ({
-    
-})
+const mapStateToProps = (state, ownProps) => {
+    if(ownProps.type === 'answer')
+}
 
 const mapDispatchToProps = {
     

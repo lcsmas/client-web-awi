@@ -129,6 +129,19 @@ const dislikeSlice = (slice, token = "", id) => {
   }).then(handleFailure).then(res=>res.json())
 }
 
+const deleteSlice = (slice, id, token = "") => {
+  const url = constructURL(`/${slice}`);
+  const authorizationValue = token ? `Bearer ${token}` : "";
+  return fetch(url, {
+    method: 'DELETE',
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: authorizationValue
+    },
+    body : JSON.stringify({id})
+  }).then(handleFailure).then(res=>res.json())
+}
 const API = {
   fetchSlice,
   postSlice,
@@ -137,7 +150,8 @@ const API = {
   register,
   likeSlice,
   dislikeSlice,
-  fetchReported
+  fetchReported,
+  deleteSlice
 };
 
 export default API;
