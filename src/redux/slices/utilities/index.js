@@ -105,7 +105,7 @@ export const createFetchableSlice = ({ name, initialState, reducers }) => {
       fetchReportedSuccess: {
         reducer: (state, action) => {
           state.fetchState.isFetchingReported = false;
-          action.payload.ids.forEach((val) => state.reportedIds.push(val));
+          action.payload.ids.forEach((id) => !state.reportedIds.includes(id) && state.reportedIds.push(id));
         },
         prepare: (res) => {
           let ids = [];

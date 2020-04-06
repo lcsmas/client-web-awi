@@ -23,7 +23,7 @@ class ManageReport extends Component {
                 <div className='manage-report-body'>
                     <ul>
                         {this.props.reportedPropositionsIds &&
-                            this.props.reportedPropositionsIds.map(id => (<li>
+                            this.props.reportedPropositionsIds.map(id => (<li key={id}>
                                 <Proposition id={id} />
                             </li>))}
                     </ul>
